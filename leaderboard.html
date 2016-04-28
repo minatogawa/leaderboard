@@ -1,0 +1,61 @@
+<body>
+  {{> playersList}}
+  {{> featuredPlayer}}    
+  {{> insertPlayer}}
+</body>
+
+<template name="insertPlayer">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-4">
+      <form>
+        <input type="text" name="newPlayer">
+        <input type="submit" value="New Player">
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="playersList">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Players</th>
+            <th>Goals</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {{# each player}}
+          <tr>       
+            <td></td>            
+            <td class="playerId {{selectedPlayer}}">{{name}}</td>
+            <td>{{goals}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        {{/each}}
+        </tbody>        
+      </table>
+    </div>
+  </div> 
+</template>
+
+<template name="featuredPlayer">
+{{#if clickedPlayer}}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <p>Featured Player: {{clickedPlayer.name}}</p>
+      <button class="addGoal btn btn-success"> Add </button>
+      <button class="decreaseGoal btn btn-warning"> Decrease </button>
+      <button class="deletePlayer btn btn-danger"> delete </button>  
+    </div>
+  </div>
+{{/if}}    
+</template>  
+
+<!-- <button class="addGoal btn btn-success"> Add </button>
+<button class="decreaseGoal btn btn-warning"> Decrease </button>
+<button class="deletePlayer btn btn-danger"> delete </button> -->
