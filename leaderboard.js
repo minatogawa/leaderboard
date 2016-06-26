@@ -2,6 +2,17 @@ Players = new Mongo.Collection('players');
 
 if (Meteor.isClient) {
 
+  Template.header.helpers({
+    profileURL: function() {
+      var user = Meteor.user(); 
+      if (user) {
+        return user.services.google.picture; 
+      } 
+    }
+  });
+
+  
+
   Template.insertPlayer.events({
     'submit form':function(event){
       event.preventDefault();
@@ -63,9 +74,33 @@ if (Meteor.isClient) {
       Players.update({_id:currentPlayerId}, {$inc:{goals:-1}});
     }  
   });
+
+  Accounts.ui.config({
+    requestPermissions:{
+      facebook:['email', 'user_about_me', 'user_photos', 'public_profile'],
+      google:['email', 'profile']
+    }
+  });
 }
 
 if (Meteor.isServer) {
-  
+  ServiceConfiguration.configurations.remove({
+    service:'facebook',
+  });
+  ServiceConfiguration.configurations.insert({
+    service:'facebook',
+    appId: '934461996644808',
+    secret: 'e3a9819063f65996b096f85d96d1a7a2',
+  });
+
+  ServiceConfiguration.configurations.remove({
+    service:'google',
+  });
+  ServiceConfiguration.configurations.insert({
+    service:'google',
+    clientId: '93788968957-r4t4fa15j1c4hfbdojj35uspk64vv8bn.apps.googleusercontent.com',
+    secret: 'I8RalInExB6atte5SV46RTcu',
+  });
+
 }
 
