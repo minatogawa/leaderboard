@@ -11,8 +11,6 @@ if (Meteor.isClient) {
     }
   });
 
-  
-
   Template.insertPlayer.events({
     'submit form':function(event){
       event.preventDefault();
